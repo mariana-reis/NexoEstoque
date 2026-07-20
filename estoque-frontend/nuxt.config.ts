@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080'
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080'
     }
   },
   vite: {
@@ -15,14 +15,6 @@ export default defineNuxtConfig({
         'date-fns/locale',
         'zod'
       ]
-    }
-  },
-  nitro: {
-    devProxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-      }
     }
   },
   app: {

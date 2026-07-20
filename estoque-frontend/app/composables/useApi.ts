@@ -3,11 +3,6 @@ import type { ApiError } from "~/types/api";
 
 export function useApi() {
   const toast = useToast();
-  const config = useRuntimeConfig();
-
-  const api = $fetch.create({
-    baseURL: config.public.apiBase,
-  });
 
   function handleApiError(error: any): never {
     const apiError: ApiError = error.response?._data || {
@@ -18,7 +13,8 @@ export function useApi() {
     let errorMessage = apiError.message;
 
     if (apiError.status === 400 && apiError.details) {
-      errorMessage = `Erro de validação: ${Object.values(apiError.details).join(", ")}`;
+      const details = Object.values(apiError.details).join(", ");
+      errorMessage = `Erro de validação: ${details}`;
     }
 
     toast.add({
@@ -31,12 +27,21 @@ export function useApi() {
     throw apiError;
   }
 
+  const config = useRuntimeConfig();
+
   async function fetchApi<T>(
     request: string,
-    opts?: Parameters<typeof api>[1],
+    opts?: FetchOptions<"json">,
   ): Promise<T> {
     try {
-      return await api<T>(request, opts);
+      const path = request.startsWith("/api")
+        ? request.replace("/api", "")
+        : request;
+
+      return await $fetch<T>(path, {
+        ...opts,
+        baseURL: config.public.apiBaseUrl as string,
+      } as any);
     } catch (error: any) {
       handleApiError(error);
     }
