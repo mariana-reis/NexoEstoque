@@ -15,6 +15,17 @@ Plataforma completa para controle de inventário, movimentações de entrada/sa�
 
 </div>
 
+### 🚀 Acesso Rápido
+
+| Recurso | Link |
+|---------|------|
+| 🌐 **Aplicação** | https://nexo-estoque.vercel.app |
+| 📖 **Swagger UI** | https://nexoestoque.onrender.com/ |
+| 📂 **Backend** | [estoque-api/README.md](./estoque-api/README.md) |
+| 🎨 **Frontend** | [estoque-frontend/README.md](./estoque-frontend/README.md) |
+
+</div>
+
 ---
 
 ## 📋 Sobre o Projeto
