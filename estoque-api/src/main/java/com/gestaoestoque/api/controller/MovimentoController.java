@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/movimentos")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
+@CrossOrigin(origins = "*")
 @Tag(name = "Movimentação", description = "Controle de entrada e saída de estoque e consulta de lucro")
 public class MovimentoController {
 
