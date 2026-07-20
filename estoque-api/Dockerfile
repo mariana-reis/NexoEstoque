@@ -1,16 +1,19 @@
-FROM ubuntu:latest AS build
+FROM eclipse-temurin:17-jdk AS build
 
-RUN apt-get update
-RUN apt-get instal openjdk-17-jdk -y
+WORKDIR /app
+
 COPY . .
 
-RUN apt-get install mavin -y
-RUN mvn clean install
+RUN chmod +x mvnw
 
-FROM openjdk:17-jdk-slim
+RUN ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:17-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-COPY --from=build estoque-api/target/estoque-api-0.0.1-SNAPSHOT.jar app.jar
-
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+ENTRYPOINT ["java", "-jar", "app.jar"]
