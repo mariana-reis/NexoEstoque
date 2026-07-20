@@ -1,0 +1,32 @@
+# Configuração Global
+spring:
+  application:
+    name: estoque-api
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+# Configuração Específica para prod
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  sql:
+    init:
+      mode: never
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
